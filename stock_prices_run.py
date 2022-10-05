@@ -1,11 +1,15 @@
 import mysql.connector
 from yahoo_fin.stock_info import tickers_sp500,  get_data
 from mysql.connector import errorcode
+from yaml_reader import read_yaml_file
+
+yams = read_yaml_file()
+
 STARTDATE = '1/1/2021'
 ENDDATE = '10/3/2022'
 tickers = tickers_sp500()
 try:
-    cnx = mysql.connector.connect(user='root', password='Unreasonable1996', database='sp500_data', host='192.168.0.3')
+    cnx = mysql.connector.connect(user=yams['user'], password=yams['password'], database=yams['database'], host=yams['host'])
     cur = cnx.cursor()
     for ticker in tickers:
         try:
